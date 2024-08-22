@@ -996,6 +996,8 @@ def _apple_framework_packaging_impl(ctx):
     split_slice_varint = ""
     if platform == "ios" and arch == "arm64" and not ctx.fragments.apple.single_arch_platform.is_device:
         split_slice_varint = "sim_"
+    if platform == "watchos" and arch in ["arm64", "arm64e"] and ctx.fragments.apple.single_arch_platform.is_device:
+        split_slice_varint = "device_"
 
     split_slice_key = "{}_{}{}".format(platform, split_slice_varint, arch)
     deps = _attrs_for_split_slice(ctx.split_attr.deps, split_slice_key)
